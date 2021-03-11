@@ -26,7 +26,7 @@ import AuthFooter from "components/Footers/AuthFooter.js";
 
 import routes from "routes.js";
 
-const Auth = (props) => {
+const Rest = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();
 
@@ -104,4 +104,4 @@ const Auth = (props) => {
   );
 };
 
-export default Auth;
+export default Rest;

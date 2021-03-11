@@ -22,6 +22,8 @@ import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
+import AddtoWs from "views/screens/AddtoWs";
+import OTPverify from "views/screens/OTPverify";
 
 var routes = [
   {
@@ -71,6 +73,20 @@ var routes = [
     name: "Register",
     icon: "ni ni-circle-08 text-pink",
     component: Register,
+    layout: "/auth",
+  },
+  {
+    path: "/otp/verify",
+    name: "OTP verify",
+    icon: "ni ni-key-25 text-info",
+    component: OTPverify,
+    layout: "/auth",
+  },
+  {
+    path: "/addtows",
+    name: "Add or create work space",
+    icon: "ni ni-circle-08 text-pink",
+    component: AddtoWs,
     layout: "/auth",
   },
 ];
