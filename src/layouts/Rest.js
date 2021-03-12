@@ -44,7 +44,7 @@ const Rest = (props) => {
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/auth") {
+      if (prop.layout === "/rest") {
         return (
           <Route
             path={prop.layout + prop.path}

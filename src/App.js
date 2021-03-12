@@ -7,6 +7,8 @@ import "assets/scss/argon-dashboard-react.scss";
 
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
+import RestLayOut from "layouts/Rest.js";
+
 import { useSelector, useDispatch } from 'react-redux'
 const App = () => {
     const user = useSelector(state => state.user)
@@ -16,6 +18,7 @@ const App = () => {
     <Switch>
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
       <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
+      <Route path="/rest" render={(props) => <RestLayOut {...props} />} />
       <Redirect from="/" to="/admin/index" />
     </Switch>
   </BrowserRouter>
