@@ -24,13 +24,14 @@ import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import AddtoWs from "views/screens/AddtoWs";
 import OTPverify from "views/screens/OTPverify";
+import Main from "views/screens/Main";
 
 var routes = [
   {
     path: "/index",
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
-    component: Index,
+    component: Main,
     layout: "/admin",
   },
   {
