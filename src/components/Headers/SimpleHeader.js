@@ -23,7 +23,7 @@ import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 const SimpleHeader = () => {
   return (
     <>
-      <div className="header pb-3 pt-5 pt-md-8"
+      <div className="header pb-3 pt-5 pt-md-6"
       style={{
           background:'#495464'
       }}
@@ -37,27 +37,7 @@ const SimpleHeader = () => {
         
       </div>
 
-      <Card
-            style={{
-                height:'70vh'
-            }}
-            
-            >
-            <Row>
-              <Col lg="6" xl="3">
-                
-              </Col>
-              <Col lg="6" xl="3">
-                
-              </Col>
-              <Col lg="6" xl="3">
-                
-              </Col>
-              <Col lg="6" xl="3">
-
-              </Col>
-            </Row>
-            </Card>
+     
     </>
   );
 };

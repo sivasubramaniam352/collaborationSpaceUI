@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -31,11 +31,16 @@ import {
 
 import Header from "components/Headers/Header.js";
 import SimpleHeader from "components/Headers/SimpleHeader";
+import { CONFIG } from "Global/GlobalCreds";
+import { getUser } from "services/ApiServices";
+import { useDispatch, useSelector } from "react-redux";
 
 const Main = (props) => {
+  const dispatch = useDispatch();
+    const user = useSelector(state => state.user);
   const [activeNav, setActiveNav] = useState(1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
-
+  console.log(user, "user");
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
   }
@@ -45,13 +50,28 @@ const Main = (props) => {
     setActiveNav(index);
     setChartExample1Data("data" + index);
   };
+
+
   return (
+  
     <>
       <SimpleHeader />
       {/* Page content */}
-      <Container className="mt--7" fluid>
+      <Container className="proxima mt--7"
+      style={{
+        paddingTop:'10'
+      }}
+      fluid>
         <Row>
-          
+        <div 
+       style={{
+         width:'100%',
+         height:500,
+        
+       }}
+       >
+
+       </div>
         </Row>
       </Container>
     </>

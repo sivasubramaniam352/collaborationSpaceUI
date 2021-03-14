@@ -147,7 +147,9 @@ const Login = () => {
             <a
               className="text-light"
               href="#pablo"
-              onClick={(e) => e.preventDefault()}
+              onClick={(e) =>{ e.preventDefault()
+              window.location = '/auth/register'
+              }}
             >
               <small>Create new account</small>
             </a>

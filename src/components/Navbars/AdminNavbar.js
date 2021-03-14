@@ -16,6 +16,7 @@
 
 */
 import React from "react";
+import { useSelector,useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
@@ -36,6 +37,9 @@ import {
 } from "reactstrap";
 
 const AdminNavbar = (props) => {
+  
+  const user = useSelector(state => state.user);
+  
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -66,14 +70,13 @@ const AdminNavbar = (props) => {
                     <img
                       alt="..."
                       src={
-                        require("../../assets/img/theme/team-4-800x800.jpg")
-                          .default
+                        user.picture? user.picture:''
                       }
                     />
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      Jessica Jones
+                     {user.username?user.username:'admin'}
                     </span>
                   </Media>
                 </Media>

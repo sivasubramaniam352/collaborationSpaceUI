@@ -15,6 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import { CONFIG } from "Global/GlobalCreds";
 import React from "react";
 
 // reactstrap components
@@ -34,6 +35,9 @@ import {
 } from "reactstrap";
 
 const Register = () => {
+
+
+ 
   return (
     <>
       <Col lg="6" md="8">
@@ -43,6 +47,7 @@ const Register = () => {
               <small>Sign up with</small>
             </div>
             <div className="text-center">
+              
               <Button
                 className="btn-neutral btn-icon mr-4"
                 color="default"
@@ -60,11 +65,16 @@ const Register = () => {
                 </span>
                 <span className="btn-inner--text">Github</span>
               </Button>
+              
               <Button
                 className="btn-neutral btn-icon"
                 color="default"
                 href="#pablo"
-                onClick={(e) => e.preventDefault()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  {/*redirect to google Auth*/}
+                  window.location=`${CONFIG.serverUrl}/google`;
+                }}
               >
                 <span className="btn-inner--icon">
                   <img
@@ -77,6 +87,7 @@ const Register = () => {
                 </span>
                 <span className="btn-inner--text">Google</span>
               </Button>
+            
             </div>
           </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">

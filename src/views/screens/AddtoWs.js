@@ -15,9 +15,51 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { createWs } from "services/ApiServices";
+import { getUser } from 'services/ApiServices';
 
-const AddtoWs = () =>{
+const AddtoWs = (props) =>{
 const [workspaceName, setworkspaceName] = useState('');
+const user = useSelector(state => state.user);
+const dispatch = useDispatch();
+const createWorkSpace = async(e) => {
+  try {
+    let bod = {
+      admin : user._id,
+      name : workspaceName,
+    }
+
+    let res = await createWs(bod);
+    if (res.success) {
+     
+    
+        let token = localStorage.getItem('token');
+        try {
+          let res = await getUser(token);
+          if (res.success) {
+            console.log(res.user);
+            dispatch({type:'user', user:res.user})
+        
+          } else {
+            console.log(res.message);
+          }
+        } catch (e) {
+          console.log(e.message);
+        }
+      
+      return props.history.push('/admin/index');
+    }
+    else{
+      console.log(res);
+      return alert(res.error+'1') 
+    }
+  } catch (e) {
+    console.log(e.message);
+    alert(e.message+'2')
+  }
+}
+
     return (
         <>
           <Col lg="6" md="8">
@@ -33,12 +75,16 @@ const [workspaceName, setworkspaceName] = useState('');
                           <i className="ni ni-hat-3" />
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input placeholder="Work-space Name" type="text" />
+                      <Input placeholder="Work-space Name" 
+                      onChange={(e)=> setworkspaceName(e.target.value)}
+                      type="text" />
                     </InputGroup>
                   </FormGroup>
 
                   <div className="text-center">
-                    <Button className="mt-4" color="primary" type="button">
+                    <Button className="mt-4" color="info" type="button"
+                    onClick={(e)=>createWorkSpace(e)}
+                    >
                       Create Work-space
                     </Button>
                   </div>

@@ -25,6 +25,7 @@ import Icons from "views/examples/Icons.js";
 import AddtoWs from "views/screens/AddtoWs";
 import OTPverify from "views/screens/OTPverify";
 import Main from "views/screens/Main";
+import Wait from "views/screens/Wait";
 
 var routes = [
   {
@@ -88,7 +89,14 @@ var routes = [
     name: "Add or create work space",
     icon: "ni ni-circle-08 text-pink",
     component: AddtoWs,
-    layout: "/auth",
+    layout: "/rest",
   },
+  {
+    path: "/wait/to/authenticate/:token",
+    name: "waiting screen",
+    icon: "ni ni-circle-08 text-pink",
+    component: Wait,
+    layout: "/rest",
+  }
 ];
 export default routes;

@@ -3,3 +3,11 @@
     justify-content: center;
     align-items: center;
 }
+@font-face {
+    font-family: "Proxima";
+    src: url('../../assets/fonts/proxima.ttf');
+}
+
+body {
+    font-family: Proxima !important;
+}
