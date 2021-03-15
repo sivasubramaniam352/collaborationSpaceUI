@@ -15,6 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import InviteModal from "components/Modals/InviteModal";
 import React from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
@@ -52,6 +53,11 @@ const AdminNavbar = () => {
           </UncontrolledCollapse>
         </Container>
       </Navbar>
+      <InviteModal 
+      
+      
+      />
+
     </>
   );
 };

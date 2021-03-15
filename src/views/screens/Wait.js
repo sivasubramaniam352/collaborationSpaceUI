@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom'
+import { useParams, withRouter } from 'react-router-dom'
 import { getUser } from 'services/ApiServices';
 
 function Wait(props) {
@@ -9,13 +9,15 @@ function Wait(props) {
     const [user, setuser] = useState();
     useEffect(() => {
        if (user) {
+           localStorage.setItem('token', token);
         if (user.admitted_workspaces.length === 0 && user.created_workspaces.length === 0) {
              dispatch({type:'user', user:user})
             return props.history.push('/rest/addtows');
                  
            } else {
             dispatch({type:'user', user:user})
-            return  props.history.push('/admin/index');    
+          
+            return  props.history.push(`/ws/${user.created_workspaces[0].workSpace._id}` + '/'+ `${ user.created_workspaces[0].workSpace.channels[0].channelId}`);    
            }
        } 
     }, [user])
@@ -46,4 +48,4 @@ function Wait(props) {
     )
 }
 
-export default Wait
+export default withRouter(Wait)

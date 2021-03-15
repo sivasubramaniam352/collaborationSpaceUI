@@ -67,7 +67,6 @@ const Main = (props) => {
        style={{
          width:'100%',
          height:500,
-        
        }}
        >
 

@@ -15,10 +15,12 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 // reactstrap components
+import InviteModal from "components/Modals/InviteModal";
+
 import {
   DropdownMenu,
   DropdownItem,
@@ -39,17 +41,43 @@ import {
 const AdminNavbar = (props) => {
   
   const user = useSelector(state => state.user);
-  
+  const currentWs = useSelector(state => state.currentWs);
+  const currentCh = useSelector(state => state.currentCh);
+
+  const [InvModal, setInvModal] = useState(false)
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
         <Container fluid>
-          <Link
+        <UncontrolledDropdown nav>
+              <DropdownToggle className="pr-0" nav>
+              <p 
             className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-            to="/"
-          >
-            {props.brandText}
-          </Link>
+              
+              >
+
+            {currentWs ? currentWs.name + ' ' : user.created_workspaces[0].workSpace.name + ' '} 
+
+            <i class="fas fa-caret-down"></i>
+
+              </p>
+
+                </DropdownToggle>
+                <DropdownMenu className="dropdown-menu-arrow" right>
+
+
+                <DropdownItem className="noti-title" 
+                onClick ={() => {}}
+                header tag="div">
+                  <h6 className="
+                pointer
+                  text-overflow m-0"
+                  onClick={() => setInvModal(true)}
+                  >Invite People</h6>
+                </DropdownItem>
+                </DropdownMenu>
+                </UncontrolledDropdown>
+          
           <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
             <FormGroup className="mb-0">
               <InputGroup className="input-group-alternative">
@@ -111,6 +139,11 @@ const AdminNavbar = (props) => {
           </Nav>
         </Container>
       </Navbar>
+      <InviteModal 
+      visibility={InvModal}
+      exitFun = {() => setInvModal(false)}
+      
+      />
     </>
   );
 };

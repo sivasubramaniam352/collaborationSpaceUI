@@ -18,6 +18,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { createWs } from "services/ApiServices";
 import { getUser } from 'services/ApiServices';
+import { withRouter } from 'react-router';
 
 const AddtoWs = (props) =>{
 const [workspaceName, setworkspaceName] = useState('');
@@ -130,4 +131,4 @@ const createWorkSpace = async(e) => {
       );
 }
 
-export default AddtoWs
+export default withRouter(AddtoWs)

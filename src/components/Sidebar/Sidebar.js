@@ -16,11 +16,11 @@
 
 */
 /*eslint-disable*/
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
-
+import './sidebarStyle.css'
 // reactstrap components
 import {
   Button,
@@ -50,15 +50,22 @@ import {
   Container,
   Row,
   Col,
+  Modal, ModalHeader, ModalBody, ModalFooter
 } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
-
-var ps;
+import _ from "lodash";
+import CCModal from "components/Modals/CCModal";
 
 const Sidebar = (props) => {
   const [collapseOpen, setCollapseOpen] = useState();
+  // const [currentChannels, setcurrentChannels] = useState([]);
+  const [Ws, setWs] = useState({});
   const user = useSelector(state => state.user);
+  const currentCh = useSelector(state => state.currentCh);
+  const currentWs = useSelector(state => state.currentWs);
 const dispatch = useDispatch();
+
+const [ccModal, setCcModal] = useState(false)
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
     return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
@@ -68,24 +75,32 @@ const dispatch = useDispatch();
     setCollapseOpen((data) => !data);
   };
   // closes the collapse
-  const closeCollapse = () => {
-    setCollapseOpen(false);
+  const setChannels = (ws) => {
+    setWs(ws)
   };
-  
+
   // creates the links that appear in the left menu / Sidebar
   const createLinks = (routes) => {
-    return routes.map((prop, key) => {
 
+    // let userWorkSpaces = _.concat(user.created_workspaces, user.admitted_workspaces);
+    // console.log(userWorkSpaces, "WDS");
+    return user.created_workspaces && user.created_workspaces.map((prop, key) => {
+console.log(prop, "DATA");
+let name = prop.workSpace.name[0] + prop.workSpace.name[prop.workSpace.name.length - 1] ;
       return (
         <NavItem key={key}>
           <NavLink
-            to={prop.layout + prop.path}
+            to={'/ws' + prop.workSpace._id + '/' + prop.workSpace.channels[0].channelId}
             tag={NavLinkRRD}
-            onClick={closeCollapse}
+            onClick={() => setChannels(prop)}
             activeClassName="active"
           >
-            <i className={prop.icon} />
-            {prop.name}
+            <Card
+            className={'wsNameLinks_Container'}
+            >
+            {name}
+            </Card>
+             
           </NavLink>
         </NavItem>
       );
@@ -106,7 +121,26 @@ const dispatch = useDispatch();
     };
   }
 
+  const createChannels =() => {
+    console.log( user, "WSWSW");
+    let data = Object.keys(Ws).length > 0 ? Ws.workSpace.channels : user.created_workspaces[0].workSpace.channels;
+    return data.map((d,i) =>{
+     return <Card
+     className={'w-100 channelLinks'} 
+     
+      >
+
+<i class="fab fa-slack-hash">
+
+</i>
+
+      </Card>
+      
+      
+    })
+  }
   return (
+
     <Navbar
       className="navbar-vertical fixed-left navbar-light"
       expand="md"
@@ -115,6 +149,7 @@ const dispatch = useDispatch();
     >
       <Container
        fluid>
+
         {/* Toggler */}
         <button
           className="navbar-toggler"
@@ -239,8 +274,49 @@ const dispatch = useDispatch();
           </Form>
           {/* Navigation */}
           <h6 className="navbar-heading text-muted">Documentation</h6>
+                    <Row>
+                    <Col
+                    sm={'5'}
+                    md={'5'}
+                    lg={'5'}
+                    xs={'5'}
+                  style={{
+                    borderRight:'1px solid blueviolet'
+                  }}
+                    >
+                        <Nav navbar>{createLinks()}</Nav>
+                    </Col>
+                    <Col
+                   
+                     sm={'6'}
+                     md={'6'}
+                     lg={'6'}
+                     xs={'6'}
+                     xl={'6'}
+                    >
+                    <Nav navbar>{
+                      createChannels()
 
-          <Nav navbar>{createLinks(routes)}</Nav>
+                    }</Nav>
+  <div
+ className={'pointer createChannelCont'}
+ onClick={() => {
+  console.log("FSASAD"); 
+  setCcModal(true)}}
+  >
+    <span
+
+    
+    >
+
++ Add Channel
+    </span>
+
+  </div>
+                    </Col>
+                    
+
+                    </Row>
           {/* Divider */}
           <hr className="my-3" />
           {/* Heading */}
@@ -269,7 +345,15 @@ const dispatch = useDispatch();
           
         </Collapse>
       </Container>
+      <CCModal 
+    
+    visibility ={ccModal}
+     exitFun={() => setCcModal(false)}
+    />
     </Navbar>
+
+    
+    
   );
 };
 

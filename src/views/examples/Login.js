@@ -15,6 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import { CONFIG } from "Global/GlobalCreds";
 import React from "react";
 
 // reactstrap components
@@ -33,7 +34,7 @@ import {
   Col,
 } from "reactstrap";
 
-const Login = () => {
+const Login = (props) => {
   return (
     <>
       <Col lg="5" md="7">
@@ -64,7 +65,9 @@ const Login = () => {
                 className="btn-neutral btn-icon"
                 color="default"
                 href="#pablo"
-                onClick={(e) => e.preventDefault()}
+                onClick={(e) => {e.preventDefault()
+                window.location = `${CONFIG.serverUrl}/google`;
+                }}
               >
                 <span className="btn-inner--icon">
                   <img

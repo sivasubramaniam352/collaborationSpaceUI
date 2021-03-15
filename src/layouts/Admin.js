@@ -39,7 +39,7 @@ const Admin = (props) => {
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
+      if (prop.layout === "/ws") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -80,7 +80,7 @@ const Admin = (props) => {
         />
         <Switch>
           {getRoutes(routes)}
-          <Redirect from="*" to="/admin/index" />
+          <Redirect from="*" to="/ws" />
         </Switch>
       
       </div>

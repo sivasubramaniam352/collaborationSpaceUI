@@ -29,11 +29,11 @@ import Wait from "views/screens/Wait";
 
 var routes = [
   {
-    path: "/index",
+    path: "/:wsId/:chId",
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
     component: Main,
-    layout: "/admin",
+    layout: "/ws",
   },
   {
     path: "/icons",
