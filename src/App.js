@@ -35,9 +35,13 @@ const App = (props) => {
         return setloading(false);
     
       } else {
+        return setloading(false);
+
         console.log(res.message);
       }
     } catch (e) {
+      return setloading(false);
+
       console.log(e.message);
     }
   }
@@ -66,7 +70,8 @@ please wait ...
       <Route path="/ws" render={(props) => <AdminLayout {...props} />} />
       <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
       <Route path="/rest" render={(props) => <RestLayOut {...props} />} />
-      {token ?<Redirect from="/" to={`/ws/${userInfo.created_workspaces[0].workSpace._id}` + '/'+ `${ userInfo.created_workspaces[0].workSpace.channels[0].channelId}`} /> : <Redirect from="/" to="/auth/login" />
+      
+      {Object.keys(userInfo).length > 0 ?<Redirect from="/" to={`/ws/${userInfo.created_workspaces[0].workSpace._id}` + '/'+ `${ userInfo.created_workspaces[0].workSpace.channels[0].channelId}`} /> : <Redirect from="/" to="/auth/login" />
       }
 
       {/* <Redirect from="/" to="/admin/index" /> */}

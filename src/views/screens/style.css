@@ -11,3 +11,7 @@
 body {
     font-family: Proxima !important;
 }
+
+.user_table_container{
+    width: 500px;
+}

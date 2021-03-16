@@ -34,11 +34,14 @@ import SimpleHeader from "components/Headers/SimpleHeader";
 import { CONFIG } from "Global/GlobalCreds";
 import { getUser } from "services/ApiServices";
 import { useDispatch, useSelector } from "react-redux";
+import Tables from "views/examples/Tables";
+import UserTable from "./UserTable";
 
 const Main = (props) => {
   const dispatch = useDispatch();
     const user = useSelector(state => state.user);
   const [activeNav, setActiveNav] = useState(1);
+  const [usertable, setusertable] = useState(true);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
   console.log(user, "user");
   if (window.Chart) {
@@ -67,9 +70,12 @@ const Main = (props) => {
        style={{
          width:'100%',
          height:500,
+         marginTop:'150px'
        }}
        >
-
+        {usertable && <UserTable 
+        
+        /> }
        </div>
         </Row>
       </Container>
