@@ -17,7 +17,7 @@ function Wait(props) {
            } else {
             dispatch({type:'user', user:user})
           
-            return  props.history.push(`/ws/${user.created_workspaces[0].workSpace._id}` + '/'+ `${ user.created_workspaces[0].workSpace.channels[0].channelId}`);    
+            return  props.history.push(`/ws/${user.created_workspaces[0].workSpace._id}` + '/'+ `${ user.created_workspaces[0].workSpace.channels[0].channelId._id}`);    
            }
        } 
     }, [user])

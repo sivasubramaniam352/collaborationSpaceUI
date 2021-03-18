@@ -17,7 +17,8 @@ import {
     Container,
     Row,
     UncontrolledTooltip,
-    Collapse
+    Collapse,
+    Tooltip
   } from "reactstrap";
   // core components
   import Header from "components/Headers/Header.js";
@@ -36,6 +37,9 @@ function UserTable() {
         {_id:'9', picture:'', username:'logesh', as:'team-mate',},
     ]);
 const [enableEdit, setenableEdit] = useState('');
+const [tooltipOpen, setTooltipOpen] = useState({open:false, id:'',content:''});
+
+  const toggle = () => setTooltipOpen(!tooltipOpen);
     const getWorkSpaceUsers = async() =>{
         
     }
@@ -90,33 +94,46 @@ const [enableEdit, setenableEdit] = useState('');
                             width:'40px',
                             height:'40px',
                             borderRadius:'40px',
-                            backgroundColor:'lightblue'
+                            backgroundColor:'lightblue',
+                            display:'flex',
+                            alignItems:'center',
+                            justifyContent:'center'
                         }}
+                        id={"Tooltip-" + user._id}
                         onClick={() =>{
                             if (user._id === enableEdit) {
                                 return setenableEdit('')     
                             }
                             return setenableEdit(user._id)
                             }}
-                        ></div>
+                        >
 
-<div
+<i class="fas fa-pen-nib"></i>
+                        </div>
+
+{/* <div
                         style={{
                             width:'40px',
                             height:'40px',
                             borderRadius:'40px',
                             backgroundColor:'lightgreen'
                         }}
-                        ></div>
+                        ></div> */}
 
 <div
                         style={{
                             width:'40px',
                             height:'40px',
                             borderRadius:'40px',
-                            backgroundColor:'red'
+                            backgroundColor:'red',
+                            display:'flex',
+                            alignItems:'center',
+                            justifyContent:'center'
                         }}
-                        ></div>
+                        >
+
+<i class="fas fa-user-slash"></i>
+                        </div>
 
                     </div>
 
@@ -259,6 +276,8 @@ const [enableEdit, setenableEdit] = useState('');
                 {/* </nav> */}
               </CardFooter>
             </Card>
+
+          
         </div>
     )
 }

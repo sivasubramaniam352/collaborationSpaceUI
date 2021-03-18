@@ -18,7 +18,8 @@ const changeState = (state = {...initialState}, { type, ...rest }) => {
       return {...state, ...rest}
     case 'currentCh':
       return {...state, ...rest}
-    
+    case 'userTable':
+      return {...state, ...rest}
     default:
       return state
   }

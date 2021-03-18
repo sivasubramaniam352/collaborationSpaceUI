@@ -36,12 +36,15 @@ import { getUser } from "services/ApiServices";
 import { useDispatch, useSelector } from "react-redux";
 import Tables from "views/examples/Tables";
 import UserTable from "./UserTable";
+import Collab from "components/CollabContainer/Collab";
 
 const Main = (props) => {
   const dispatch = useDispatch();
     const user = useSelector(state => state.user);
   const [activeNav, setActiveNav] = useState(1);
-  const [usertable, setusertable] = useState(true);
+  // const [usertable, setusertable] = useState(false);
+  const usertable = useSelector(state => state.usertableOpen);
+  
   const [chartExample1Data, setChartExample1Data] = useState("data1");
   console.log(user, "user");
   if (window.Chart) {
@@ -73,9 +76,18 @@ const Main = (props) => {
          marginTop:'150px'
        }}
        >
-        {usertable && <UserTable 
+        {usertable &&
+        <div
+        style={{
+          position:'absolute'
+        }}
+        >
+        <UserTable 
         
-        /> }
+        />
+        </div>
+         }
+<Collab />
        </div>
         </Row>
       </Container>

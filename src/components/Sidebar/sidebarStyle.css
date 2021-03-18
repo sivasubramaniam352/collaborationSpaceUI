@@ -8,10 +8,11 @@
     color: aliceblue;
 font-size: 20px;
 
+
 }
 .channelLinks{
     background-color: blueviolet;
-    
+
     height: 50px;
     display: flex;
 
@@ -27,9 +28,10 @@ font-size: 12px;
 .createChannelCont{
     color: blueviolet;
     text-align: center;
-    width: 100%;
+    width: 100px;
     height: 50px;
     font-size: 12px;
     display: flex;
+    padding: 0px 5px;
     align-items: center;
 }

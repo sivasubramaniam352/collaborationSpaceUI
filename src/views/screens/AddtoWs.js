@@ -50,7 +50,7 @@ const createWorkSpace = async(e) => {
           console.log(e.message);
         }
       
-      return props.history.push('/admin/index');
+      return props.history.push('/ws/index');
     }
     else{
       console.log(res);

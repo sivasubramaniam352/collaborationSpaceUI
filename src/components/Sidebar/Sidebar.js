@@ -20,7 +20,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
-import './sidebarStyle.css'
+import "./sidebarStyle.css";
 // reactstrap components
 import {
   Button,
@@ -50,7 +50,10 @@ import {
   Container,
   Row,
   Col,
-  Modal, ModalHeader, ModalBody, ModalFooter
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
 } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
@@ -60,12 +63,14 @@ const Sidebar = (props) => {
   const [collapseOpen, setCollapseOpen] = useState();
   // const [currentChannels, setcurrentChannels] = useState([]);
   const [Ws, setWs] = useState({});
-  const user = useSelector(state => state.user);
-  const currentCh = useSelector(state => state.currentCh);
-  const currentWs = useSelector(state => state.currentWs);
-const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const currentCh = useSelector((state) => state.currentCh);
+  const currentWs = useSelector((state) => state.currentWs);
+  const usertable = useSelector((state) => state.usertableOpen);
 
-const [ccModal, setCcModal] = useState(false)
+  const dispatch = useDispatch();
+
+  const [ccModal, setCcModal] = useState(false);
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
     return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
@@ -76,35 +81,42 @@ const [ccModal, setCcModal] = useState(false)
   };
   // closes the collapse
   const setChannels = (ws) => {
-    setWs(ws)
+    setWs(ws);
   };
 
   // creates the links that appear in the left menu / Sidebar
   const createLinks = (routes) => {
-
     // let userWorkSpaces = _.concat(user.created_workspaces, user.admitted_workspaces);
     // console.log(userWorkSpaces, "WDS");
-    return user.created_workspaces && user.created_workspaces.map((prop, key) => {
-console.log(prop, "DATA");
-let name = prop.workSpace.name[0] + prop.workSpace.name[prop.workSpace.name.length - 1] ;
-      return (
-        <NavItem key={key}>
-          <NavLink
-            to={'/ws' + prop.workSpace._id + '/' + prop.workSpace.channels[0].channelId}
-            tag={NavLinkRRD}
-            onClick={() => setChannels(prop)}
-            activeClassName="active"
-          >
-            <Card
-            className={'wsNameLinks_Container'}
-            >
-            {name}
-            </Card>
-             
-          </NavLink>
-        </NavItem>
-      );
-    });
+    return (
+      user.created_workspaces &&
+      [...user.created_workspaces, ...user.admitted_workspaces].map(
+        (prop, key) => {
+          console.log(prop, "DATA");
+          let name =
+            prop.workSpace.name[0] +
+            prop.workSpace.name[prop.workSpace.name.length - 1];
+          return (
+            <NavItem key={key}>
+              <NavLink
+                to={
+                  "/ws" +
+                  prop.workSpace._id +
+                  "/" +
+                  prop.workSpace.channels[0].channelId
+                }
+                tag={NavLinkRRD}
+                onClick={() => setChannels(prop)}
+                activeClassName="active"
+                style={{ paddingTop: "0px" }}
+              >
+                <Card className={"wsNameLinks_Container"}>{name}</Card>
+              </NavLink>
+            </NavItem>
+          );
+        }
+      )
+    );
   };
 
   const { bgColor, routes, logo } = props;
@@ -121,35 +133,35 @@ let name = prop.workSpace.name[0] + prop.workSpace.name[prop.workSpace.name.leng
     };
   }
 
-  const createChannels =() => {
-    console.log( user, "WSWSW");
-    let data = Object.keys(Ws).length > 0 ? Ws.workSpace.channels : user.created_workspaces[0].workSpace.channels;
-    return data.map((d,i) =>{
-     return <Card
-     className={'w-100 channelLinks'} 
-     
-      >
+  const createChannels = () => {
+    console.log(user, "WSWSW");
+    let data =
+      Object.keys(Ws).length > 0
+        ? Ws.workSpace.channels
+        : user.created_workspaces[0].workSpace.channels;
+    console.log(data, "DATA");
+    return data.map((d, i) => {
+      return (
+        <Card
+          className={"channelLinks"}
+          style={{
+            width: "100%",
+          }}
+        >
+          <i class="fab fa-slack-hash"></i> {d.channelId.name}
+        </Card>
+      );
+    });
+  };
 
-<i class="fab fa-slack-hash">
-
-</i>
-
-      </Card>
-      
-      
-    })
-  }
   return (
-
     <Navbar
       className="navbar-vertical fixed-left navbar-light"
       expand="md"
       id="sidenav-main"
-      style={{background:'#e8e8e8'}}
+      style={{ background: "#e8e8e8", padding: "0px" }}
     >
-      <Container
-       fluid>
-
+      <Container fluid>
         {/* Toggler */}
         <button
           className="navbar-toggler"
@@ -189,12 +201,7 @@ let name = prop.workSpace.name[0] + prop.workSpace.name[prop.workSpace.name.leng
             <DropdownToggle nav>
               <Media className="align-items-center">
                 <span className="avatar avatar-sm rounded-circle">
-                  <img
-                    alt="..."
-                    src={
-                      user.picture
-                    }
-                  />
+                  <img alt="..." src={user.picture} />
                 </span>
               </Media>
             </DropdownToggle>
@@ -273,50 +280,59 @@ let name = prop.workSpace.name[0] + prop.workSpace.name[prop.workSpace.name.leng
             </InputGroup>
           </Form>
           {/* Navigation */}
-          <h6 className="navbar-heading text-muted">Documentation</h6>
-                    <Row>
-                    <Col
-                    sm={'5'}
-                    md={'5'}
-                    lg={'5'}
-                    xs={'5'}
-                  style={{
-                    borderRight:'1px solid blueviolet'
-                  }}
-                    >
-                        <Nav navbar>{createLinks()}</Nav>
-                    </Col>
-                    <Col
-                   
-                     sm={'6'}
-                     md={'6'}
-                     lg={'6'}
-                     xs={'6'}
-                     xl={'6'}
-                    >
-                    <Nav navbar>{
-                      createChannels()
+          {/* <h6 className="navbar-heading text-muted">Documentation</h6> */}
+          <div className={"flex"} style={{}}>
+            <div
+              style={{
+                borderRight: "1px solid blueviolet",
+                padding: "0px 10px",
+              }}
+            >
+              <Nav
+                style={{
+                  paddingTop: "0px",
+                }}
+                navbar
+              >
+                {createLinks()}
+              </Nav>
+            </div>
+            <div
+              className={"flex flexCol"}
+              style={{
+                width: "100%",
+                alignItems: "center",
+              }}
+            >
+              <Nav
+                style={{
+                  width: "90%",
+                }}
+                navbar
+              >
+                {createChannels()}
+              </Nav>
+              <div
+                className={"pointer createChannelCont"}
+                onClick={() => {
+                  console.log("FSASAD");
+                  setCcModal(true);
+                }}
+              >
+                <span>+ Add Channel</span>
+              </div>
 
-                    }</Nav>
-  <div
- className={'pointer createChannelCont'}
- onClick={() => {
-  console.log("FSASAD"); 
-  setCcModal(true)}}
-  >
-    <span
-
-    
-    >
-
-+ Add Channel
-    </span>
-
-  </div>
-                    </Col>
-                    
-
-                    </Row>
+              <div
+                className={"pointer createChannelCont"}
+                onClick={() => {
+                  console.log("FSASAD");
+                  dispatch({ type: "userTable", usertableOpen: !usertable });
+                }}
+              >
+                <span>Manage taem</span>
+              </div>
+            </div>
+          </div>
           {/* Divider */}
           <hr className="my-3" />
           {/* Heading */}
@@ -342,18 +358,10 @@ let name = prop.workSpace.name[0] + prop.workSpace.name[prop.workSpace.name.leng
               </NavLink>
             </NavItem>
           </Nav> */}
-          
         </Collapse>
       </Container>
-      <CCModal 
-    
-    visibility ={ccModal}
-     exitFun={() => setCcModal(false)}
-    />
+      <CCModal visibility={ccModal} exitFun={() => setCcModal(false)} />
     </Navbar>
-
-    
-    
   );
 };
 
