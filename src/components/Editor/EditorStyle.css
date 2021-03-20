@@ -1,6 +1,11 @@
 .editor_container{
-    width:'100%';
-    padding:'20px';
-    border:'2px solid grey';
-    max-height:'50vh';
+    width:80%;
+    
+    border:2px solid grey;
+    position: absolute;
+    max-height: 500px;
+}
+.editor{
+    max-height: 500px;
+    width:100%
 }

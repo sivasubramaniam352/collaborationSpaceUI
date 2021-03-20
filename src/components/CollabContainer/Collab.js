@@ -85,11 +85,11 @@ const mapChats = () =>{
                 }}
                 >{mapChats()}
                 </div>
-                <div>
+                
                     <Editor 
                     
                     />
-                </div>
+                
                     </div>
     )
 }

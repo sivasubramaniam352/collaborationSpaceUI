@@ -33,8 +33,26 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { signIn } from "services/ApiServices";
 
 const Login = (props) => {
+  const [creds, setcreds] = useState({email:'', password:''})
+
+  const changeHandler = (e, name) => {
+    setcreds(...creds, {[name]:e.target.value})
+  }
+
+  const submitHanlder = () =>{
+      try {
+        let res = signIn(creds);
+
+        if (res.success) {
+          props.history.push('/ws')
+        }
+      } catch (e) {
+        
+      }
+  }
   return (
     <>
       <Col lg="5" md="7">
@@ -98,6 +116,7 @@ const Login = (props) => {
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
+                    onChange={(e) => changeHandler(e, 'email')}
                   />
                 </InputGroup>
               </FormGroup>
@@ -112,6 +131,8 @@ const Login = (props) => {
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
+                    onChange={(e) => changeHandler(e, 'password')}
+
                   />
                 </InputGroup>
               </FormGroup>
