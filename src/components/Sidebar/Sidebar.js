@@ -81,7 +81,10 @@ const Sidebar = (props) => {
   };
   // closes the collapse
   const setChannels = (ws) => {
+    
     setWs(ws);
+
+    dispatch({type:'currentWs', currentWs:ws.workSpace});
   };
 
   // creates the links that appear in the left menu / Sidebar
@@ -89,7 +92,7 @@ const Sidebar = (props) => {
     // let userWorkSpaces = _.concat(user.created_workspaces, user.admitted_workspaces);
     // console.log(userWorkSpaces, "WDS");
     return (
-      user.created_workspaces &&
+      (user.created_workspaces.length > 0 || user.admitted_workspaces.length > 0) &&
       [...user.created_workspaces, ...user.admitted_workspaces].map(
         (prop, key) => {
           console.log(prop, "DATA");
@@ -103,14 +106,22 @@ const Sidebar = (props) => {
                   "/ws" +
                   prop.workSpace._id +
                   "/" +
-                  prop.workSpace.channels[0].channelId
+                  prop.workSpace.channels[0].channelId 
                 }
                 tag={NavLinkRRD}
                 onClick={() => setChannels(prop)}
                 activeClassName="active"
-                style={{ paddingTop: "0px" }}
+                style={{ paddingTop: "0px" , 
+              
+            }}
               >
-                <Card className={"wsNameLinks_Container"}>{name}</Card>
+                <Card className={"wsNameLinks_Container"}
+                style={{
+              border:currentWs._id === prop.workSpace._id ?'3px solid red':'3px solid #e8e8e8'
+
+                }}
+                
+                >{name}</Card>
               </NavLink>
             </NavItem>
           );
@@ -138,18 +149,35 @@ const Sidebar = (props) => {
     let data =
       Object.keys(Ws).length > 0
         ? Ws.workSpace.channels
-        : user.created_workspaces[0].workSpace.channels;
+        : user.created_workspaces[0].workSpace.channels || user.admitted_workspaces[0].workSpace.channels;
     console.log(data, "DATA");
     return data.map((d, i) => {
       return (
+        <NavLink
+        key={i}
+        to={
+          "/ws" +
+          Ws._id +
+          "/" +
+          d.channelId 
+        }
+        tag={NavLinkRRD}
+        onClick={() => dispatch({type:'currentCh', currentCh:d.channelId})}
+        activeClassName="active"
+        style={{ paddingTop: "0px" , 
+
+      }}
+      >
         <Card
           className={"channelLinks"}
           style={{
             width: "100%",
+            border:currentCh === d.channelId ? '3px solid pink':'3px solid #e8e8e8'
           }}
         >
           <i class="fab fa-slack-hash"></i> {d.channelId.name}
         </Card>
+        </NavLink>
       );
     });
   };
@@ -316,7 +344,8 @@ const Sidebar = (props) => {
                 className={"pointer createChannelCont"}
                 onClick={() => {
                   console.log("FSASAD");
-                  setCcModal(true);
+                  dispatch({type:'CCModal', CCModal:true});
+
                 }}
               >
                 <span>+ Add Channel</span>
@@ -360,7 +389,7 @@ const Sidebar = (props) => {
           </Nav> */}
         </Collapse>
       </Container>
-      <CCModal visibility={ccModal} exitFun={() => setCcModal(false)} />
+      {/* <CCModal visibility={ccModal} exitFun={() => setCcModal(false)} /> */}
     </Navbar>
   );
 };

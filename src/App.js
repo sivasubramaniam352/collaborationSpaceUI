@@ -16,8 +16,7 @@ const App = (props) => {
     // const user = useSelector(state => state.user)
     const [userInfo, setuserInfo] = useState({});
     const [loading, setloading] = useState(true);
-    const token = localStorage.getItem('token');
-      // //fun to fetch user Info
+
   const getUSerInfo = async() =>{
     
     let token = localStorage.getItem('token');
@@ -35,9 +34,9 @@ const App = (props) => {
         return setloading(false);
     
       } else {
-        return setloading(false);
+         setloading(false);
 
-        console.log(res.message);
+        alert(res.error);
       }
     } catch (e) {
       return setloading(false);
@@ -71,7 +70,12 @@ please wait ...
       <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
       <Route path="/rest" render={(props) => <RestLayOut {...props} />} />
       
-      {Object.keys(userInfo).length > 0 ?<Redirect from="/" to={`/ws/${userInfo.created_workspaces[0].workSpace._id}` + '/'+ `${ userInfo.created_workspaces[0].workSpace.channels[0].channelId._id}`} /> : <Redirect from="/" to="/auth/login" />
+      {Object.keys(userInfo).length > 0 ?userInfo.created_workspaces.length > 0 ? 
+      <Redirect from="/" to={`/ws/${userInfo.created_workspaces[0].workSpace._id}` + '/'+ `${ userInfo.created_workspaces[0].workSpace.channels[0].channelId._id}`} /> :
+      <Redirect from="/" to="/rest/addtows" />
+      :
+      <Redirect from="/" to="/auth/login" />
+      
       }
 
       {/* <Redirect from="/" to="/admin/index" /> */}

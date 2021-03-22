@@ -16,7 +16,9 @@
 
 */
 import { CONFIG } from "Global/GlobalCreds";
-import React from "react";
+import React,{useState}from "react";
+import { useDispatch } from "react-redux";
+import { withRouter } from "react-router";
 
 // reactstrap components
 import {
@@ -35,22 +37,38 @@ import {
 } from "reactstrap";
 import { signIn } from "services/ApiServices";
 
+
 const Login = (props) => {
+  const dispatch = useDispatch();
   const [creds, setcreds] = useState({email:'', password:''})
 
   const changeHandler = (e, name) => {
-    setcreds(...creds, {[name]:e.target.value})
+    setcreds({...creds, [name]:e.target.value})
   }
 
-  const submitHanlder = () =>{
+  const submitHanlder = async() =>{
       try {
-        let res = signIn(creds);
+        let res =await signIn(creds);
+          if (res.success) {
+            localStorage.setItem('token', res.token);
+            dispatch({type:'user', user:res.user});
 
-        if (res.success) {
-          props.history.push('/ws')
-        }
+            if (res.user.created_workspaces.length > 0) {
+              props.history.push( `/ws/${res.user.created_workspaces[0].workSpace._id}` + '/'+ `${ res.user.created_workspaces[0].workSpace.channels[0].channelId._id}`); 
+            }
+            if (res.user.admitted_workspaces.length > 0) {
+              props.history.push( `/ws/${res.user.admitted_workspaces[0].workSpace._id}` + '/'+ `${ res.user.admitted_workspaces[0].workSpace.channels[0].channelId._id}`); 
+
+            }
+            
+           
+          }
+          else{
+alert(res.error)
+          }
+       
       } catch (e) {
-        
+        alert(e.message)
       }
   }
   return (
@@ -62,23 +80,7 @@ const Login = (props) => {
               <small>Sign in with</small>
             </div>
             <div className="btn-wrapper text-center">
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/icons/common/github.svg")
-                        .default
-                    }
-                  />
-                </span>
-                <span className="btn-inner--text">Github</span>
-              </Button>
+             
               <Button
                 className="btn-neutral btn-icon"
                 color="default"
@@ -150,7 +152,9 @@ const Login = (props) => {
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button">
+                <Button className="my-4"
+                onClick={() =>submitHanlder()}
+                color="primary" type="button">
                   Sign in
                 </Button>
               </div>
@@ -159,20 +163,14 @@ const Login = (props) => {
         </Card>
         <Row className="mt-3">
           <Col xs="6">
-            <a
-              className="text-light"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              <small>Forgot password?</small>
-            </a>
+          
           </Col>
           <Col className="text-right" xs="6">
             <a
               className="text-light"
               href="#pablo"
               onClick={(e) =>{ e.preventDefault()
-              window.location = '/auth/register'
+             props.history.push('/auth/register');
               }}
             >
               <small>Create new account</small>
@@ -184,4 +182,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default withRouter(Login);

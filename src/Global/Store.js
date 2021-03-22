@@ -20,6 +20,11 @@ const changeState = (state = {...initialState}, { type, ...rest }) => {
       return {...state, ...rest}
     case 'userTable':
       return {...state, ...rest}
+    case 'CCModal':
+      return {...state, ...rest}
+    case 'INVITEModal':
+      return {...state, ...rest}
+    
     default:
       return state
   }

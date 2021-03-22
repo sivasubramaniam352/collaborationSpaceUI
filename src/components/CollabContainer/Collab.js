@@ -80,7 +80,7 @@ const mapChats = () =>{
         <div>
                 <div
                 style={{
-                    height:'80vh',
+                    height:'75vh',
                     overflow:'auto'
                 }}
                 >{mapChats()}

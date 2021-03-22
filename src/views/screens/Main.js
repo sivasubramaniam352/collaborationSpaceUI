@@ -37,10 +37,16 @@ import { useDispatch, useSelector } from "react-redux";
 import Tables from "views/examples/Tables";
 import UserTable from "./UserTable";
 import Collab from "components/CollabContainer/Collab";
+import InviteModal from "components/Modals/InviteModal";
+import CCModal from "components/Modals/CCModal";
 
 const Main = (props) => {
   const dispatch = useDispatch();
     const user = useSelector(state => state.user);
+    const CModal = useSelector(state => state.CCModal);
+    const INModal = useSelector(state => state.INVITEModal);
+
+
   const [activeNav, setActiveNav] = useState(1);
   // const [usertable, setusertable] = useState(false);
   const usertable = useSelector(state => state.usertableOpen);
@@ -86,11 +92,24 @@ const Main = (props) => {
         
         />
         </div>
-         }
+         } 
+        
 <Collab />
        </div>
         </Row>
       </Container>
+          {CModal &&
+          <CCModal
+          visibility
+          exitFun={() => dispatch({type:'CCModal', CCModal:false})}
+          />
+          }
+          {INModal &&
+          <InviteModal 
+          visibility 
+          exitFun={() => dispatch({type:'INVITEModal', INVITEModal:false})}
+          />
+          }
     </>
   );
 };

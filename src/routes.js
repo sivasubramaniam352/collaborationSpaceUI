@@ -26,6 +26,7 @@ import AddtoWs from "views/screens/AddtoWs";
 import OTPverify from "views/screens/OTPverify";
 import Main from "views/screens/Main";
 import Wait from "views/screens/Wait";
+import AcceptInvite from "views/screens/AcceptInvite";
 
 var routes = [
   {
@@ -99,6 +100,14 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Wait,
     layout: "/rest",
-  }
+  },
+  {
+    path: "/invite:workspaceId",
+    name: "waiting screen",
+    icon: "ni ni-circle-08 text-pink",
+    component: AcceptInvite,
+    layout: "/rest",
+  },
+  
 ];
 export default routes;

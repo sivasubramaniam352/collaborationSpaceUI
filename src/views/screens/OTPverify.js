@@ -17,7 +17,12 @@ import {
 } from "reactstrap";
 import OtpInput from "react-otp-input";
 import './style.css'
-function OTPverify() {
+import { verifyOtp } from "services/ApiServices";
+import { useDispatch } from "react-redux";
+import { withRouter } from "react-router";
+function OTPverify(props) {
+  const dispatch = useDispatch();
+
     const inpcount = ['ref1','ref2','ref3','ref4','ref5','ref6'];
     const [activeIndex, setactiveIndex] = useState('')
     const refs = {
@@ -29,11 +34,20 @@ function OTPverify() {
          ref6 : useRef()
     }
 const [Otp, setOtp] = useState('')
-   const validateOtp = async() =>{
+   const validateOtp = async(props) =>{
        try {
-        
+         let pretoken = localStorage.getItem('pretoken');
+        let res =await verifyOtp({confirmation_code:Otp}, pretoken);
+        if(res.success){
+          localStorage.setItem('token', res.token);
+          dispatch({type:'user',user:res.user});
+          props.history.push('/rest/addtows')
+        }
+        else{
+          alert(res.error, "ERR")
+        }
        } catch (e) {
-           
+           alert(e.message)
        }
    }
     return (
@@ -72,7 +86,9 @@ const [Otp, setOtp] = useState('')
                   
                   
                   <div className="text-center">
-                    <Button className="mt-4" color="primary" type="button">
+                    <Button className="mt-4" color="primary"
+                    onClick={() =>validateOtp()}
+                    type="button">
                       Verify OTP
                     </Button>
                   </div>
@@ -84,4 +100,4 @@ const [Otp, setOtp] = useState('')
       );
 }
 
-export default OTPverify
+export default withRouter(OTPverify)

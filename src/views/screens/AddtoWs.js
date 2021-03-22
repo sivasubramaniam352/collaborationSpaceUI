@@ -20,7 +20,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { createWs } from "services/ApiServices";
 import { getUser } from 'services/ApiServices';
 import { withRouter } from 'react-router';
-
+import { addtoWs } from 'services/ApiServices';
+import { RouteComponentProps } from "react-router-dom";
 const AddtoWs = (props) =>{
 const [workspaceName, setworkspaceName] = useState('');
 const user = useSelector(state => state.user);
@@ -44,10 +45,10 @@ const createWorkSpace = async(e) => {
             dispatch({type:'user', user:res.user})
         
           } else {
-            console.log(res.message);
+            alert(res.error);
           }
         } catch (e) {
-          console.log(e.message);
+          alert(e.message);
         }
       
       return props.history.push('/ws/index');
@@ -59,6 +60,17 @@ const createWorkSpace = async(e) => {
   } catch (e) {
     console.log(e.message);
     alert(e.message+'2')
+  }
+}
+
+const ATW = async() =>{
+  try {
+    let res = await addtoWs({
+      userEmail:user.email,
+
+    })
+  } catch (e) {
+    
   }
 }
 
@@ -120,7 +132,9 @@ const createWorkSpace = async(e) => {
                     </Col>
                   </Row>
                   <div className="text-center">
-                    <Button className="mt-4" color="primary" type="button">
+                    <Button className="mt-4" 
+                    onClick={() => ATW()}
+                    color="primary" type="button">
                       Add to workspace
                     </Button>
                   </div>

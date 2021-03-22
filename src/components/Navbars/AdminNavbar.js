@@ -39,7 +39,7 @@ import {
 } from "reactstrap";
 
 const AdminNavbar = (props) => {
-  
+  const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const currentWs = useSelector(state => state.currentWs);
   const currentCh = useSelector(state => state.currentCh);
@@ -72,7 +72,7 @@ const AdminNavbar = (props) => {
                   <h6 className="
                 pointer
                   text-overflow m-0"
-                  onClick={() => setInvModal(true)}
+                  onClick={() => dispatch({type:'INVITEModal',INVITEModal:true})}
                   >Invite People</h6>
                 </DropdownItem>
                 </DropdownMenu>
@@ -139,11 +139,11 @@ const AdminNavbar = (props) => {
           </Nav>
         </Container>
       </Navbar>
-      <InviteModal 
+      {/* <InviteModal 
       visibility={InvModal}
       exitFun = {() => setInvModal(false)}
       
-      />
+      /> */}
     </>
   );
 };
