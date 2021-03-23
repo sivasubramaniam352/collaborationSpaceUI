@@ -32,7 +32,7 @@ const MessageView = ({data}) => {
                     {data.by.username || "sivasubramaniam"} 
                 </span>
                 <span>
-                    {data.created_at || Date()}
+                    {data.created_at ? `${new Date(data.created_at).getDay()}-${new Date(data.created_at).getMonth()}-${new Date(data.created_at).getFullYear()}`:`${new Date().getDay()}-${new Date().getMonth()}-${new Date().getFullYear()}`}
                 </span>
 
             </div>

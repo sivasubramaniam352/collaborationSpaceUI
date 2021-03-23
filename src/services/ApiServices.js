@@ -284,8 +284,50 @@ export const updateUserDesignation = async(bod) =>{
   }
 }
 
-export const channelController = async(bod) =>{
+export const getAllchats = async(workSpaceId,channelId,userId)=>{
+  let response;
+  try {
+    response = await fetch(`${CONFIG.serverUrl}/chat/getAll/${workSpaceId}/${channelId}/${userId}`, 
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    if (response.status === 200) {
+      return await response.json();
+    } else if (response.status !== 401) {
+      return await response.json();
+    } else {
+      var errorResponse = await response.json();
+      throw new Error(errorResponse.error);
+    }
+  } catch (e) {
+    throw e;
+  }
 
 }
 
-
+export const addChat = async(bod) => {
+  let response;
+  try {
+    response = await fetch(`${CONFIG.serverUrl}/chat/create`, 
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body:JSON.stringify(bod)
+    });
+    if (response.status === 200) {
+      return await response.json();
+    } else if (response.status !== 401) {
+      return await response.json();
+    } else {
+      var errorResponse = await response.json();
+      throw new Error(errorResponse.error);
+    }
+  } catch (e) {
+    throw e;
+  }
+}

@@ -3,7 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'react
 
 import './ModalStyle.css'
 const CCModal = ({visibility, exitFun})  => {
-    console.log(visibility);
+
     return (
         <div
          >

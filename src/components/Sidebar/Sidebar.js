@@ -117,7 +117,7 @@ const Sidebar = (props) => {
               >
                 <Card className={"wsNameLinks_Container"}
                 style={{
-              border:currentWs._id === prop.workSpace._id ?'3px solid red':'3px solid #e8e8e8'
+              border:currentWs && currentWs._id === prop.workSpace._id ?'3px solid red':'3px solid #e8e8e8'
 
                 }}
                 

@@ -6,15 +6,13 @@ import { getAllchats } from 'services/ApiServices';
 import {BsArrowLeftShort, BsArrowRightShort} from 'react-icons/bs';
 import { TiAttachmentOutline } from 'react-icons/ti';
 import { MdSend } from 'react-icons/md'
-
-import './collabStyle.css'
-import Thread from './Thread';
-import { addChat } from 'services/ApiServices';
-const Collab = ({screen}) =>{
+import {AiOutlineClose} from 'react-icons/ai'
+const Thread = ({exitFun, chatId}) =>{
 const dispatch = useDispatch()
 const currentCh = useSelector(state => state.currentCh);
 const currentWs = useSelector(state => state.currentWs);
 const user = useSelector(state => state.user);
+const [attachments, setAttachments] = useState([]);
 
     
 const [chats, setChats] = useState([
@@ -80,12 +78,11 @@ const [chats, setChats] = useState([
 
 ]);
 const [Msg, setMsg] = useState('')
-const [thread, setThread] = useState(false);
 const getAllCons = async() =>{  
     try {
         let res = await getAllchats(currentWs._id, currentCh._id, user._id);
         if (res.success) {
-            setChats([...chats, ...res.chats]);
+            setChats(res.chats);
         }
         // else{
         //     console.log(res.error)
@@ -95,79 +92,63 @@ const getAllCons = async() =>{
     }
 }
 useEffect(() => {
-//     setInterval(() => {
-//    getAllCons();
-//     }, 2000);
+    setInterval(() => {
+   getAllCons();
+    }, 1000);
 }, [])
 
 const handleEditorChange = (e) =>{
 setMsg(e);
 }
-const uploadChangehandler= (e) =>{
-    setAttachments([...attachments,e.target.files[0]])
-}
-const [attachments, setAttachments] = useState([]);
-const [chatId, setchatId] = useState('');
-
-
 const mapChats = () =>{
     return chats.map((e,i) =>{
-       return <div
-       onClick={()=> {setchatId(e._id)
-    setThread(true)
-    }}
+       return <MessageView
+            data={e}
 
-
- 
-       >
-<MessageView
-
-data={e}
-
-/>
-
-       </div>
-        
+            />
 
     })
 }
 
-const createChat = async() =>{
-    try {
-        let res = await addChat({
-            channel:currentCh._id,
-            workSpace:currentWs._id,
-            by:user._id,
-            message:Msg,
-            attachments:attachments,
-        });
-        if (res.success) {
-            getAllCons();
-        }
-        else{
-            alert(res.error)
-        }
-    } catch (e) {
-        alert(e.message)
-    }
-}   
+const uploadChangehandler= (e) =>{
+    setAttachments([...attachments,e.target.files[0]])
+}
     return (
         <div
-        className={'flex'}
+       
         >
             <div
-            className={thread ? 'collabContainer_Reduce_Width':'collabContainer'}
+            style={{
+                width:'100%',
+                height:'30px',
+                display:'flex',
+                backgroundColor:'purple',
+                color:'white',
+                alignItems:'center',
+                justifyContent:'space-between',
+                paddingRight:'40px',
+                paddingLeft:'20px',
+            }}
             >
+                <div>Threads</div>
+                <AiOutlineClose 
+                style={{
+                    cursor:'pointer',
 
+                }}
 
+                onClick={() => exitFun()}
+                />
+            </div>
                 <div
                 style={{
-                    height:'74vh',
+                    height:'70vh',
                     overflow:'auto'
                 }}
                 >{mapChats()}
                 </div>
-               <div
+                
+                <div
                style={{
                     display:'flex',
 
@@ -206,11 +187,8 @@ const createChat = async() =>{
 
             
          }}
-         onClick={()=> createChat()}
          >
              <MdSend 
-
-            
              size={'1.3rem'}
              />
          </div>
@@ -247,20 +225,10 @@ const createChat = async() =>{
 
         </div>
                </div>
-                  
-                    
-       
+                 
                </div>
-                {thread && <div
-                className={'thread_container'}
-                >
-                    <Thread
-                    exitFun={() => setThread(false)}
-                    chatId={chatId}
-                    />
-                </div>}
-                    </div>
+               
     )
 }
 
-export default Collab;
+export default Thread;
