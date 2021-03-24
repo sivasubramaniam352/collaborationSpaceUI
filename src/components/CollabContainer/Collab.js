@@ -17,71 +17,75 @@ const currentWs = useSelector(state => state.currentWs);
 const user = useSelector(state => state.user);
 
     
-const [chats, setChats] = useState([
-{
-    channel:"this",
-    workSpace:'this',
-    message:`<p>hey! how is it going guys? </p>`,
-    by:{
-        picture:''
-    },
-    tags:'',
-    attachments:'',
+const [chats, setChats] = useState(
+//     [
+// {
+//     channel:"this",
+//     workSpace:'this',
+//     message:`<p>hey! how is it going guys? </p>`,
+//     by:{
+//         picture:''
+//     },
+//     tags:'',
+//     attachments:'',
 
-    active:true
-},
-{
-    channel:"this",
-    workSpace:'this',
-    message:`<p> Going good sir. </p>`,
-    by:{
-        picture:''
-    },
-    tags:'',
-    attachments:'',
+//     active:true
+// },
+// {
+//     channel:"this",
+//     workSpace:'this',
+//     message:`<p> Going good sir. </p>`,
+//     by:{
+//         picture:''
+//     },
+//     tags:'',
+//     attachments:'',
 
-    active:true
-},
-{
-    channel:"this",
-    workSpace:'this',
-    message:`<p> sir please do POC this : </p>
-    <a href='https://google.com'>https://google.com </a>
-    `,
-    by:{
-        picture:''
-    },
-    tags:'',
-    attachments:'',
+//     active:true
+// },
+// {
+//     channel:"this",
+//     workSpace:'this',
+//     message:`<p> sir please do POC this : </p>
+//     <a href='https://google.com'>https://google.com </a>
+//     `,
+//     by:{
+//         picture:''
+//     },
+//     tags:'',
+//     attachments:'',
 
-    active:true
-},
-{
-    channel:"this",
-    workSpace:'this',
-    message:`<p>Today&#39;s Report</p>
+//     active:true
+// },
+// {
+//     channel:"this",
+//     workSpace:'this',
+//     message:`<p>Today&#39;s Report</p>
 
-    <ol>
-        <li>designed layouts</li>
-        <li>connected api</li>
-        <li>added functionalities
-            <br>&nbsp; &nbsp; &nbsp;</li>
-    </ol>
+//     <ol>
+//         <li>designed layouts</li>
+//         <li>connected api</li>
+//         <li>added functionalities
+//             <br>&nbsp; &nbsp; &nbsp;</li>
+//     </ol>
     
-    `,
-    by:{
-        picture:''
-    },
-    tags:'',
-    attachments:'',
+//     `,
+//     by:{
+//         picture:''
+//     },
+//     tags:'',
+//     attachments:'',
 
-    active:true
-},
+//     active:true
+// },
 
-]);
+// ]
+[]
+);
 const [Msg, setMsg] = useState('')
 const [thread, setThread] = useState(false);
 const getAllCons = async() =>{  
+    console.log(currentWs, currentCh, user._id, "I");
     try {
         let res = await getAllchats(currentWs._id, currentCh._id, user._id);
         if (res.success) {
@@ -95,9 +99,9 @@ const getAllCons = async() =>{
     }
 }
 useEffect(() => {
-//     setInterval(() => {
-//    getAllCons();
-//     }, 2000);
+    setInterval(() => {
+   getAllCons();
+    }, 2000);
 }, [])
 
 const handleEditorChange = (e) =>{

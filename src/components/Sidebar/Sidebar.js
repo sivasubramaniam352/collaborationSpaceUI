@@ -156,13 +156,13 @@ const Sidebar = (props) => {
         <NavLink
         key={i}
         to={
-          "/ws" +
-          Ws._id +
+          "/ws" + "/"+
+          currentWs._id +
           "/" +
-          d.channelId 
+          d.channelId._id
         }
         tag={NavLinkRRD}
-        onClick={() => dispatch({type:'currentCh', currentCh:d.channelId})}
+       
         activeClassName="active"
         style={{ paddingTop: "0px" , 
 
@@ -174,6 +174,9 @@ const Sidebar = (props) => {
             width: "100%",
             border:currentCh === d.channelId ? '3px solid pink':'3px solid #e8e8e8'
           }}
+          onClick={() => {
+          
+            dispatch({type:'currentCh', currentCh:d.channelId})}}
         >
           <i class="fab fa-slack-hash"></i> {d.channelId.name}
         </Card>

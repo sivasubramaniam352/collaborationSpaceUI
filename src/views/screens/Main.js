@@ -39,10 +39,14 @@ import UserTable from "./UserTable";
 import Collab from "components/CollabContainer/Collab";
 import InviteModal from "components/Modals/InviteModal";
 import CCModal from "components/Modals/CCModal";
+import { createChannel } from "services/ApiServices";
+import { localeData } from "moment";
 
 const Main = (props) => {
   const dispatch = useDispatch();
     const user = useSelector(state => state.user);
+    const currentWs = useSelector(state => state.currentWs);
+    const currentCh = useSelector(state => state.currentCh)
     const CModal = useSelector(state => state.CCModal);
     const INModal = useSelector(state => state.INVITEModal);
 
@@ -63,6 +67,29 @@ const Main = (props) => {
     setChartExample1Data("data" + index);
   };
 
+  const [chName, setChName] = useState('')
+
+  const addChannel =async() =>{
+    try {
+      let res = await createChannel({admin:user._id, workSpace:currentWs , name:chName});
+      if (res.sussess) {
+        console.log(res);
+
+        try {
+          let token = await localStorage.getItem('user');
+          let result = await getUser(token);
+          if (result.sussess) {
+            dispatch({type:'user', user:result.user})
+          }
+        } catch (e) {
+          console.log(e.message);
+        }
+      }
+    } catch (e) {
+      console.log(e.message);
+      
+    }
+  }
 
   return (
   
@@ -102,6 +129,8 @@ const Main = (props) => {
           <CCModal
           visibility
           exitFun={() => dispatch({type:'CCModal', CCModal:false})}
+          createChannelFun={() => addChannel()}
+          setChName={(e) =>setChName(e)}
           />
           }
           {INModal &&

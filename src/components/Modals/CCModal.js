@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'reactstrap';
 
 import './ModalStyle.css'
-const CCModal = ({visibility, exitFun})  => {
+const CCModal = ({visibility, exitFun, createChannelFun, setChName})  => {
 
     return (
         <div
@@ -21,11 +21,11 @@ const CCModal = ({visibility, exitFun})  => {
             <Input
                     placeholder="Channel name"
                     type="text"
-                
+                onChange={(e) => setChName(e.target.value)}
                   />
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={exitFun}>create</Button>{' '}
+          <Button color="primary" onClick={() => createChannelFun()}>create</Button>{' '}
          
         </ModalFooter>
       </Modal>
