@@ -27,8 +27,17 @@ const App = (props) => {
         
         console.log(res.user, "useer");
         setuserInfo(res.user);
-
+        
+        if(res.user.created_workspaces.length > 0){
+        dispatch({type:'currentWs', currentCh:res.user.created_workspaces[0].workSpace});
+        dispatch({type:'currentCh', currentCh:res.user.created_workspaces[0].workSpace.channels[0].channelId});
+      }
+      if (res.user.admitted_workspaces.length > 0) {
+        dispatch({type:'currentWs', currentCh:res.user.admitted_workspaces[0].workSpace});
+        dispatch({type:'currentCh', currentCh:res.user.admitted_workspaces[0].workSpace.channels[0].channelId});
+      }
         dispatch({type:'user', user:res.user})
+        
 
         
         return setloading(false);

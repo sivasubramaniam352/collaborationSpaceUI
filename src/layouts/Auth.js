@@ -62,12 +62,12 @@ const Auth = (props) => {
     <>
       <div className="proxima main-content" ref={mainContent}>
         <AuthNavbar />
-        <div className="header bg-gradient-info py-7 py-lg-8">
+        <div className="header bg-white py-7 py-lg-8">
           <Container>
             <div className="header-body text-center mb-7">
               <Row className="justify-content-center">
                 <Col lg="5" md="6">
-                  <h1 className="text-white">Welcome!</h1>
+                  <h1 className="text-black">Welcome!</h1>
                 
                 </Col>
               </Row>

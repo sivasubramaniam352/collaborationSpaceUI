@@ -87,6 +87,7 @@ const Sidebar = (props) => {
     dispatch({type:'currentWs', currentWs:ws.workSpace});
   };
 
+  
   // creates the links that appear in the left menu / Sidebar
   const createLinks = (routes) => {
     // let userWorkSpaces = _.concat(user.created_workspaces, user.admitted_workspaces);

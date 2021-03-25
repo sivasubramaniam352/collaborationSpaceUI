@@ -16,7 +16,18 @@ function Wait(props) {
                  
            } else {
             dispatch({type:'user', user:user})
-          
+            
+            if(user.created_workspaces.length > 0){
+                
+                dispatch({type:'currentWs', currentWs:user.created_workspaces[0].workSpace});
+                dispatch({type:'currentCh', currentCh:user.created_workspaces[0].workSpace.channels[0].channelId});
+              }
+              if (user.admitted_workspaces.length > 0) {
+                
+
+                dispatch({type:'currentWs', currentWs:user.admitted_workspaces[0].workSpace});
+                dispatch({type:'currentCh', currentCh:user.admitted_workspaces[0].workSpace.channels[0].channelId});
+              }
             return  props.history.push(`/ws/${user.created_workspaces[0].workSpace._id}` + '/'+ `${ user.created_workspaces[0].workSpace.channels[0].channelId._id}`);    
            }
        } 

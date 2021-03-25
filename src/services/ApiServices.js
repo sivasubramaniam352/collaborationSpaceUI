@@ -331,3 +331,56 @@ export const addChat = async(bod) => {
     throw e;
   }
 }
+
+export const updateChat = async(bod, token) =>{
+  let response;
+  try {
+    response = await fetch(`${CONFIG.serverUrl}/chat/update`, 
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:token
+      },
+      body:JSON.stringify(bod)
+    });
+    if (response.status === 200) {
+      return await response.json();
+    } else if (response.status !== 401) {
+      return await response.json();
+    } else {
+      var errorResponse = await response.json();
+      throw new Error(errorResponse.error);
+    }
+  } catch (e) {
+    throw e;
+  }
+
+}
+
+export const deleteChat = async(bod, token) =>{
+  let response;
+  try {
+    response = await fetch(`${CONFIG.serverUrl}/chat/remove`, 
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:token
+      },
+      body:JSON.stringify(bod)
+    });
+    if (response.status === 200) {
+      return await response.json();
+    } else if (response.status !== 401) {
+      return await response.json();
+    } else {
+      var errorResponse = await response.json();
+      throw new Error(errorResponse.error);
+    }
+  } catch (e) {
+    throw e;
+  }
+
+}
+

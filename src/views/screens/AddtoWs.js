@@ -21,7 +21,7 @@ import { createWs } from "services/ApiServices";
 import { getUser } from 'services/ApiServices';
 import { withRouter } from 'react-router';
 import { addtoWs } from 'services/ApiServices';
-import { RouteComponentProps } from "react-router-dom";
+
 const AddtoWs = (props) =>{
 const [workspaceName, setworkspaceName] = useState('');
 const user = useSelector(state => state.user);
@@ -43,7 +43,14 @@ const createWorkSpace = async(e) => {
           if (res.success) {
             console.log(res.user);
             dispatch({type:'user', user:res.user})
-        
+            if(res.user.created_workspaces.length > 0){
+              dispatch({type:'currentWs', currentCh:res.user.created_workspaces[0].workSpace});
+              dispatch({type:'currentCh', currentCh:res.user.created_workspaces[0].workSpace.channels[0].channelId});
+            }
+            if (res.user.admitted_workspaces.length > 0) {
+              dispatch({type:'currentWs', currentCh:res.user.admitted_workspaces[0].workSpace});
+              dispatch({type:'currentCh', currentCh:res.user.admitted_workspaces[0].workSpace.channels[0].channelId});
+            }
           } else {
             alert(res.error);
           }
