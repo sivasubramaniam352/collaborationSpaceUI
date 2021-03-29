@@ -47,7 +47,7 @@ const [Otp, setOtp] = useState('')
           alert(res.error, "ERR")
         }
        } catch (e) {
-           alert(e.message)
+           console.log(e.message)
        }
    }
     return (

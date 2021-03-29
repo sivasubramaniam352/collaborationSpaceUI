@@ -30,9 +30,11 @@ const InviteModal = ({visibility, exitFun})  => {
 
         }, token);
 
-        if (res.success) {
-          alert('invite sent')
+        if (res.workSpace) {
+        
           exitFun()
+          console.log(res.workSpace);
+
         }
         else{
           alert(res.error)

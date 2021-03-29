@@ -58,7 +58,7 @@ const createWorkSpace = async(e) => {
           alert(e.message);
         }
       
-      return props.history.push('/ws/index');
+      return props.history.push('/ws');
     }
     else{
       console.log(res);
@@ -74,10 +74,15 @@ const ATW = async() =>{
   try {
     let res = await addtoWs({
       userEmail:user.email,
-
-    })
+      workSpace:workspaceName,
+      
+    });
+    if (res.success) {
+      console.log(res);
+      props.history.push(`/ws/${res.workSpace._id}/${res.workSpace.channels[0].channelId}`);
+    }
   } catch (e) {
-    
+    console.log(e);
   }
 }
 

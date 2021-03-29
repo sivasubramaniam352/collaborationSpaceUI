@@ -4,7 +4,9 @@
      border-left:1px solid grey;
 
 }
-  
+.sidenav-main{
+    padding: 0px !important;
+}
     .collabContainer_Reduce_Width{
         width: 60vw;
     }
@@ -20,7 +22,13 @@
             margin-left: 15px;
        }
     @media only screen and (max-width: 600px) {
-        
+        .collabContainer{
+            padding: 14px !important;
+
+        }
+        .sidenav-main{
+            padding: 14px !important;
+        }
        .thread_container{
            position:absolute;
            width: 100%;
@@ -36,3 +44,4 @@
       .border_bottom{
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
+

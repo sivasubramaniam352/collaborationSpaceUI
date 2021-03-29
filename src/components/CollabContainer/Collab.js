@@ -99,6 +99,7 @@ const Collab = ({ screen }) => {
           setRefs({ ...refs, [e._id]: React.createRef() });
         });
       } else {
+        setRefs([])
         console.log(res.error);
       }
     } catch (e) {
@@ -111,7 +112,7 @@ const Collab = ({ screen }) => {
   useEffect(() => {
     const loop = setInterval(() => {
       getAllCons();
-    }, 2000);
+    }, 5000);
 
     return () => {
       console.log("cleaning up");

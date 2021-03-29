@@ -53,10 +53,7 @@ const AdminNavbar = () => {
           </UncontrolledCollapse>
         </Container>
       </Navbar>
-      <InviteModal 
-      
-      
-      />
+      <InviteModal  />
 
     </>
   );

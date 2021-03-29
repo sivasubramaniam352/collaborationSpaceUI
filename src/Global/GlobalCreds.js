@@ -1,6 +1,8 @@
 let config = {};
 
-config.serverUrl = 'http://localhost:5050/v1';
+config.serverUrl = 'https://collabotrationserver.herokuapp.com/v1';
+
+// 'http://localhost:5050/v1';
 config.UIUrl = 'http://localhost:3000';
 config.firebaseConfig ={
     apiKey: "AIzaSyCYlgy44ohJlXfzfKSHzoBYKU16nEWSj38",

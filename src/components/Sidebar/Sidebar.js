@@ -110,13 +110,14 @@ const Sidebar = (props) => {
                   prop.workSpace.channels[0].channelId 
                 }
                 tag={NavLinkRRD}
-                onClick={() => setChannels(prop)}
+               
                 activeClassName="active"
                 style={{ paddingTop: "0px" , 
               
             }}
               >
                 <Card className={"wsNameLinks_Container"}
+                 onClick={() => setChannels(prop)}
                 style={{
               border:currentWs && currentWs._id === prop.workSpace._id ?'3px solid red':'3px solid #e8e8e8'
 
@@ -147,12 +148,10 @@ const Sidebar = (props) => {
 
   const createChannels = () => {
     console.log(user, "WSWSW");
-    let data =
-      Object.keys(Ws).length > 0
-        ? Ws.workSpace.channels
-        : user.created_workspaces[0].workSpace.channels || user.admitted_workspaces[0].workSpace.channels;
-    console.log(data, "DATA");
-    return data.map((d, i) => {
+
+        
+
+    return currentWs.channels.map((d, i) => {
       return (
         <NavLink
         key={i}
@@ -191,7 +190,7 @@ const Sidebar = (props) => {
       className="navbar-vertical fixed-left navbar-light"
       expand="md"
       id="sidenav-main"
-      style={{ background: "#e8e8e8", padding: "0px" }}
+      style={{ background: "#e8e8e8"}}
     >
       <Container fluid>
         {/* Toggler */}
@@ -296,7 +295,7 @@ const Sidebar = (props) => {
             </Row>
           </div>
           {/* Form */}
-          <Form className="mt-4 mb-3 d-md-none">
+          {/* <Form className="mt-4 mb-3 d-md-none">
             <InputGroup className="input-group-rounded input-group-merge">
               <Input
                 aria-label="Search"
@@ -310,7 +309,7 @@ const Sidebar = (props) => {
                 </InputGroupText>
               </InputGroupAddon>
             </InputGroup>
-          </Form>
+          </Form> */}
           {/* Navigation */}
           {/* <h6 className="navbar-heading text-muted">Documentation</h6> */}
           <div className={"flex"} style={{}}>
@@ -355,7 +354,7 @@ const Sidebar = (props) => {
                 <span>+ Add Channel</span>
               </div>
 
-              <div
+              {user.created_workspaces.includes({workSpace:currentWs}) && <div
                 className={"pointer createChannelCont"}
                 onClick={() => {
                   console.log("FSASAD");
@@ -363,7 +362,7 @@ const Sidebar = (props) => {
                 }}
               >
                 <span>Manage taem</span>
-              </div>
+              </div>}
             </div>
           </div>
           {/* Divider */}
